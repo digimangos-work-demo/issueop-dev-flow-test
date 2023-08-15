@@ -1,0 +1,20 @@
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.get_ref.outputs.result }}
+    steps:
+      - id: get_ref
+        run: |
+          labels="$(gh api repos/$OWNER/$REPO_NAME/pulls/$PULL_REQUEST_NUMBER --jq '.labels.[].name')"
+          echo "$labels"
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
