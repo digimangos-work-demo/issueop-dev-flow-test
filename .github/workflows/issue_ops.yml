@@ -32,6 +32,11 @@ jobs:
           OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-  call-workflow-passing-data:
+  call-latest-workflow:
     needs: [setup]
-    uses: ${{ github.repository_owner }}/${{ github.event.repository.name }}/.github/workflows/reusable-workflow.yml@${{ needs.setup.outputs.ref }}
+    if: ${{ needs.setup.outputs.ref == 'main' }}
+    uses: digimangos-playground/issueop-dev-flow-test/.github/workflows/reusable-workflow.yml@main
+  call-stable-workflow:
+    needs: [setup]
+    if: ${{ needs.setup.outputs.ref == 'stable' }}
+    uses: digimangos-playground/issueop-dev-flow-test/.github/workflows/reusable-workflow.yml@stable
