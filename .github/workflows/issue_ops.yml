@@ -19,8 +19,12 @@ jobs:
           labels="$(gh api repos/$OWNER/$REPO_NAME/issues/$ISSUE_NUMBER --jq '.labels.[].name')"
           for label in "${labels[@]}"
           do
-            echo "$label"
+            if [[ "$label" == "development" ]]; then
+              echo "result=main" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
           done
+          echo "result=stable" >> "$GITHUB_OUTPUT"
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
