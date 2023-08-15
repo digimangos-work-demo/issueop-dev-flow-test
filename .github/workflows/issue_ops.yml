@@ -17,7 +17,10 @@ jobs:
       - id: get_ref
         run: |
           labels="$(gh api repos/$OWNER/$REPO_NAME/issues/$ISSUE_NUMBER --jq '.labels.[].name')"
-          echo "$labels"
+          for label in "${labels[@]}"
+          do
+            echo "$label"
+          done
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
