@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  triage:
+  execute:
     runs-on: ubuntu-latest
     steps:
     - name: Output "stable"
