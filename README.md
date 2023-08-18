@@ -1,2 +1,3 @@
 # issueop-dev-flow-test
-Repo for testing issueops dev flow
+
+Simple testing for implementing a workflow to separate stable and development issueops.
